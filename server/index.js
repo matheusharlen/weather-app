@@ -45,3 +45,5 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Servidor rodado na porta: ${PORT}`);
 });
+
+modeule.exports = app;
