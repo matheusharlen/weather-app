@@ -1,6 +1,8 @@
 //src/WeatherSearch.js
 
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 
 function WeatherSearch({onSearch}) {
@@ -19,20 +21,24 @@ function WeatherSearch({onSearch}) {
 
 
   return (
-    <div className='mb-3'>
-        <div className='input-group'>
-      <input
-        type="text"
-        className='form-control'
-        value={cityInput}
-        placeholder='Digite o nome da cidade...'
-        onChange={(event) => setCityInput(event.target.value)}
-        onKeyDown={handleKeyDown}
-     />
-        <button class name="btn btn-primary" onClick={handleSearch}>Buscar</button>
-        </div>
+    <div className="mb-3 d-flex justify-content-center">
+      <div className="input-group" style={{ maxWidth: "600px" }}>
+        <input
+          type="text"
+          className="form-control"
+          value={cityInput}
+          placeholder="Digite o nome da cidade..."
+          onChange={(event) => setCityInput(event.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <button className="btn btn-outline-info" onClick={handleSearch}>
+          Buscar
+        </button>
+      </div>
     </div>
+
   );
 }
+
 
 export default WeatherSearch;
