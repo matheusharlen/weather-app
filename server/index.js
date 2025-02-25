@@ -5,8 +5,9 @@ const cors = require('cors');
 
 const app = express();
 const allowedOrigins = [
-    'https://weather-previsao.vercel.app/',
-    'http://localhost:3000'
+    'https://weather-previsao.vercel.app',
+    'http://localhost:3000',
+    'localhost:3000/'
   ];
   
   app.use(cors({
@@ -18,7 +19,7 @@ const allowedOrigins = [
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Acesso bloqueado pela política de CORS'));
+        callback(new Error('Acesso bloqueado pela política de CORS no back'));
       }
     },
     methods: ['GET'], 
