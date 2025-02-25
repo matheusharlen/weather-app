@@ -36,7 +36,7 @@ useEffect(() => {
 , [city]);
 
 const fetchWeatherByCity = (city) => {
-  axios.get(`weather-app-production-fc08.up.railway.app/api/weather/${city}`)
+  axios.get(`https://weather-app-production-fc08.up.railway.app/api/weather/${city}`)
     .then((response) => {
       console.log('Clima', response.data);
       setWeather(response.data);
