@@ -31,7 +31,7 @@ function WeatherSearch({onSearch}) {
           onChange={(event) => setCityInput(event.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button className="btn btn-outline-info" onClick={handleSearch}>
+        <button className="btn btn-outline-secondary" onClick={handleSearch}>
           Buscar
         </button>
       </div>
