@@ -36,7 +36,7 @@ useEffect(() => {
 , [city]);
 
 const fetchWeatherByCity = (city) => {
-  axios.get(`http://localhost:4000/api/weather/${city}`)
+  axios.get(`https://weather-app-api-back.vercel.app/api/weather/${city}`)
     .then((response) => {
       console.log('Clima', response.data);
       setWeather(response.data);
