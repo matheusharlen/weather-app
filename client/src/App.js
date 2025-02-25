@@ -6,7 +6,6 @@ import WeatherSearch from './WeatherSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
 import './App.css';
 
 function App() {
@@ -49,6 +48,10 @@ const handleSearchCity = (newCity) => {
   setCity(newCity);
 };  
 
+function formatarData(dataISO) {
+  const [ano, mes, dia] = dataISO.split('-'); 
+  return `${dia}/${mes}/${ano}`; 
+}
 
 
   return (
@@ -101,27 +104,19 @@ const handleSearchCity = (newCity) => {
 
             <h3 className="mt-4">Previsão de 3 Dias</h3>
             <div className="row">
-              {weather.forecast &&
-                weather.forecast.forecastday.map((day) => (
-                  <div className="col-md-4" key={day.date}>
-                    <div className="card mb-3">
-                      <div className="card-body text-center">
-                        <h5 className="card-title">{day.date}</h5>
-                        <p>{day.day.condition.text}</p>
-                        <p>
-                          Max: {day.day.maxtemp_c}°C | Min:{' '}
-                          {day.day.mintemp_c}°C
-                        </p>
-                        <img
-                          src={day.day.condition.icon}
-                          alt="Ícone condição"
-                        />
-                      </div>
+              {weather.forecast?.forecastday.map((day) => (
+                <div className="col-md-4" key={day.date}>
+                  <div className="card mb-3 weather-card">
+                    <div className="card-body text-center">
+                      <h5 className="card-title">{formatarData(day.date)}</h5>
+                      <p className='weather-condition'>{day.day.condition.text}</p>
+                      <p>Max: {day.day.maxtemp_c}°C | Min: {day.day.mintemp_c}°C</p>
+                      <img className="weather-icon" src={day.day.condition.icon} alt="Ícone condição" />
                     </div>
                   </div>
-                ))}
-            </div>
-          </div>
+                </div>
+              ))}
+            </div>          </div>
         </div>
       ) : (
         <p className="text-center">Carregando...</p>
