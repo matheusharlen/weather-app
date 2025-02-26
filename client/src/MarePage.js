@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import WeatherSearch from './WeatherSearch';
 
 function MarePage() {
   const [mareData, setMareData] = useState(null);
@@ -32,7 +33,9 @@ const fetchTideByCity = (city) => {
       console.error('Erro ao buscar marés', error);
     });
 };
-
+const handleSearchCity = (newCity) => {
+  setCity(newCity);
+};
 
   useEffect(() => {
    if (city) {
@@ -44,6 +47,7 @@ const fetchTideByCity = (city) => {
   return (
     <div className="container py-4">
       <Link to="/" className="btn btn-primary">Voltar</Link>
+      <WeatherSearch onSearch={handleSearchCity} />
       <h1 className="text-center my-4">Dados da Maré em {city}</h1>
 
       {mareData ? (
