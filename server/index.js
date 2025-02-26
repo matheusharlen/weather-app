@@ -42,6 +42,18 @@ app.get('/api/weather/:city', async (req, res) => {
 }
 );
 
+app.get('/api/mare/:city', async (req, res) => {
+    try {
+        const { city } = req.params;
+        const url = `https://api.weatherapi.com/v1/marine.json?key=${WEATHER_API_KEY}&q=${city}&days=1&lang=pt`;
+        const response = await axios.get(url);
+        res.json(response.data);
+    } catch (error) {
+        console.error("Erro no servidor ao buscar maré", error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Servidor rodado na porta: ${PORT}`);

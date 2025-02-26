@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import './App.css';
+import { Link } from 'react-router-dom';
 
 function App() {
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
@@ -56,6 +57,14 @@ function formatarData(dataISO) {
 
   return (
     <div className="container py-4">
+      <div className="container mare>">
+        <div className="d-flex justify-content-end mt-3">
+          <Link to="/mare" className="btn btn-info">Ver Marés</Link>
+        </div>
+
+      </div>
+
+
       <h1 className="text-center mb-4">Previsão do Tempo</h1>
       <WeatherSearch onSearch={handleSearchCity} />
 
