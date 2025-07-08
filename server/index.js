@@ -7,7 +7,7 @@ const app = express();
 const allowedOrigins = [
     'https://weather-previsao.vercel.app',
     'http://localhost:3000',
-    'localhost:3000/'
+    'localhost:3000'
   ];
   
   app.use(cors({
@@ -42,7 +42,7 @@ app.get('/api/weather/:city', async (req, res) => {
 }
 );
 
-app.get('/api/mare/:city', async (req, res) => {
+/* app.get('/api/mare/:city', async (req, res) => {
     try {
         const { city } = req.params;
         const url = `https://api.weatherapi.com/v1/marine.json?key=${WEATHER_API_KEY}&q=${city}&days=1&lang=pt`;
@@ -52,7 +52,7 @@ app.get('/api/mare/:city', async (req, res) => {
         console.error("Erro no servidor ao buscar maré", error);
         res.status(500).json({ error: error.message });
     }
-});
+}); */
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

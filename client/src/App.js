@@ -4,13 +4,13 @@ import React, {  useEffect, useState } from 'react';
 import axios from 'axios';
 import WeatherSearch from './WeatherSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Skeleton from './Skeleton';
 
 import './App.css';
 import { Link } from 'react-router-dom';
 
 function App() {
-const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+//const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 const [weather, setWeather] = useState(null);
 const [city, setCity] = useState('');
 
@@ -57,12 +57,12 @@ function formatarData(dataISO) {
 
   return (
     <div className="container py-4">
-      <div className="container mare>">
+      {/* <div className="container mare>">
         <div className="d-flex justify-content-end mt-3">
           <Link to="/mare" className="btn btn-info">Ver Marés</Link>
         </div>
 
-      </div>
+      </div> */}
 
 
       <h1 className="text-center mb-4">Previsão do Tempo</h1>
@@ -119,7 +119,10 @@ function formatarData(dataISO) {
                     <div className="card-body text-center">
                       <h5 className="card-title">{formatarData(day.date)}</h5>
                       <p className='weather-condition'>{day.day.condition.text}</p>
-                      <p>Max: {day.day.maxtemp_c}°C | Min: {day.day.mintemp_c}°C</p>
+                      <p>
+                        Max: <span style={{ color: 'red', fontWeight: '500' }}>{day.day.maxtemp_c}°C </span>  |  
+                        Min: <span style={{ color: 'blue', fontWeight: '500' }}>{day.day.mintemp_c}°C</span>
+                      </p>
                       <img className="weather-icon" src={day.day.condition.icon} alt="Ícone condição" />
                     </div>
                   </div>
@@ -128,7 +131,14 @@ function formatarData(dataISO) {
             </div>          </div>
         </div>
       ) : (
-        <p className="text-center">Carregando...</p>
+        <div className='d-flex justify-content-center'>
+          <div style={{maxWidth: '600px', width: '100%'}}>
+            <Skeleton/>
+
+            <Skeleton/>
+          </div>
+        </div>
+                    
       )}
     </div>
   );
