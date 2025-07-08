@@ -9,7 +9,8 @@ const allowedOrigins = [
     'http://localhost:3000',
     'localhost:3000',
     'https://weatherapp.matheusharlen.com.br',
-    'weatherapp.matheusharlen.com.br'    
+    'weatherapp.matheusharlen.com.br',
+    'https://weather-h40j8c4z9-matheus-projects-9f710d54.vercel.app'
   ];
   
   app.use(cors({
