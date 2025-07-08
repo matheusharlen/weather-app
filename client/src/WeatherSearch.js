@@ -1,44 +1,48 @@
+
 //src/WeatherSearch.js
 
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import React from 'react';
+import AsyncSelect from 'react-select/async';
+import axios from 'axios';
 
+const WeatherSearch = ({ onSearch }) => {
+  const loadOptions = (inputValue, callback) => {
+    if (inputValue.length < 3) {
+      callback([]);
+      return;
+    }
 
-function WeatherSearch({onSearch}) {
-  const [cityInput, setCityInput] = useState('');
-  const handleSearch = () => {
-    if (cityInput.trim() !== '') {
-      onSearch(cityInput);
-      setCityInput('');
+    axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${inputValue}`)
+      .then(response => {
+        const cities = response.data.results.map(city => ({
+          value: city.name,
+          label: `${city.name}, ${city.country}`
+        }));
+        callback(cities);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar cidades:', error);
+        callback([]);
+      });
+  };
+
+  const handleChange = selectedOption => {
+    if (selectedOption) {
+      onSearch(selectedOption.value);
     }
   };
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
 
   return (
-    <div className="mb-3 d-flex justify-content-center">
-      <div className="input-group" style={{ maxWidth: "600px" }}>
-        <input
-          type="text"
-          className="form-control"
-          value={cityInput}
-          placeholder="Digite o nome da cidade..."
-          onChange={(event) => setCityInput(event.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-        <button className="btn btn-outline-secondary" onClick={handleSearch}>
-          Buscar
-        </button>
-      </div>
+    <div className="mb-3" style={{ maxWidth: '600px', margin: '0 auto' }}>
+      <AsyncSelect
+        cacheOptions
+        loadOptions={loadOptions}
+        defaultOptions
+        onChange={handleChange}
+        placeholder="Digite o nome da cidade..."
+      />
     </div>
-
   );
-}
-
+};
 
 export default WeatherSearch;

@@ -1,76 +1,97 @@
+/* src/App.css */
+
+body {
+  background-color: #f0f2f5; /* Fundo cinza claro e suave */
+  color: #333; /* Cor de texto escura para legibilidade */
+  font-family: 'Poppins', sans-serif; /* Nova fonte */
+}
+
+.container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+h1 {
+  font-weight: 600;
+  color: #2c3e50; /* Cor de título forte, mas não preta */
+}
+
+.card {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 20px; /* Bordas mais suaves */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada e profissional */
+  overflow: hidden; /* Garante que nada saia das bordas arredondadas */
+}
+
+.card-title {
+  font-weight: 600;
+  color: #34495e;
+}
+
 .weather-card {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 15px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  padding: 15px;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
 }
 
 .weather-condition {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 70px; 
-  max-width: 90%; 
-  text-align: center;
-  word-wrap: break-word;
+  color: #5a6a7a;
+  font-size: 0.9rem;
+  min-height: 40px; /* Garante alinhamento */
 }
 
 .weather-icon {
   width: 50px;
   height: 50px;
-  margin-top: auto;
-}
-.input-custom {
-  max-width: 600px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 10px;
-
+  margin-bottom: 1rem;
 }
 
-
-
-
-
-.skeleton-card {
-  width: 300px;
-  padding: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+.display-4 {
+  font-weight: 700;
+  color: #2c3e50;
 }
 
-.skeleton-image {
-  width: 100%;
-  height: 150px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  animation: pulse 1.5s infinite; /* Animação de pulsação */
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #3498db; /* Azul vibrante para a condição principal */
 }
 
-.skeleton-title {
-  width: 70%;
-  height: 20px;
-  background-color: #e0e0e0;
-  margin-top: 16px;
-  border-radius: 4px;
-  animation: pulse 1.5s infinite;
+/* Estilizando o react-select para o tema claro */
+.css-b62m3t-container .css-1s2u09g-control, 
+.css-b62m3t-container .css-1pahdxg-control {
+  border-radius: 8px !important;
+  border-color: #ced4da !important;
+  box-shadow: none !important;
 }
 
-.skeleton-text {
-  width: 100%;
-  height: 16px;
-  background-color: #e0e0e0;
-  margin-top: 8px;
-  border-radius: 4px;
-  animation: pulse 1.5s infinite;
+.css-b62m3t-container .css-1s2u09g-control:hover,
+.css-b62m3t-container .css-1pahdxg-control:hover {
+  border-color: #86b7fe !important;
 }
 
-@keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
+.css-1wa3eu0-placeholder {
+  color: #6c757d !important;
+}
+
+.css-1n7v3ny-option {
+  background-color: #ffffff !important;
+  color: #333 !important;
+}
+
+.css-1n7v3ny-option:hover {
+  background-color: #e9ecef !important;
+}
+
+.css-12jo7m5 {
+  background-color: #ffffff !important;
 }
