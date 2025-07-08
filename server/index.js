@@ -7,7 +7,9 @@ const app = express();
 const allowedOrigins = [
     'https://weather-previsao.vercel.app',
     'http://localhost:3000',
-    'localhost:3000'
+    'localhost:3000',
+    'https://weatherapp.matheusharlen.com.br',
+    'weatherapp.matheusharlen.com.br'    
   ];
   
   app.use(cors({
