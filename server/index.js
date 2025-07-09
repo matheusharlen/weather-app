@@ -4,15 +4,15 @@ const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
-const allowedOrigins = [
-   /*  'https://weather-previsao.vercel.app',
+/* const allowedOrigins = [
+    'https://weather-previsao.vercel.app',
     'http://localhost:3000',
     'localhost:3000',
     'https://weatherapp.matheusharlen.com.br',
     'weatherapp.matheusharlen.com.br',
     'https://weather-h40j8c4z9-matheus-projects-9f710d54.vercel.app',
-    'weather-app-git-modificacoes-visuais1-matheus-projects-9f710d54.vercel.app */
-    *
+    'weather-app-git-modificacoes-visuais1-matheus-projects-9f710d54.vercel.app
+    
   ];
   
   app.use(cors({
@@ -29,7 +29,10 @@ const allowedOrigins = [
     },
     methods: ['GET'], 
     optionsSuccessStatus: 200 
-  }));
+  })); */
+app.use(cors({
+  origin: '*' .
+}));
 
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 
