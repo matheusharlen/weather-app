@@ -31,7 +31,7 @@ const app = express();
     optionsSuccessStatus: 200 
   })); */
 app.use(cors({
-  origin: '*' .
+  origin: '*'
 }));
 
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
