@@ -16,7 +16,7 @@ const WeatherSearch = ({ onSearch }) => {
       .then(response => {
         const cities = response.data.results.map(city => ({
           value: city.name,
-          label: `${city.name}, ${city.country}`
+          label: `${city.name}, ${city.admin1}, ${city.country}`
         }));
         callback(cities);
       })
