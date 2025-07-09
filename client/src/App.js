@@ -1,19 +1,19 @@
 
-//src/App.js
-
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect, useState } from 'react';
 import axios from 'axios';
 import WeatherSearch from './WeatherSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Skeleton from './Skeleton';
 
 import './App.css';
+import { Link } from 'react-router-dom';
 
 function App() {
-  const [weather, setWeather] = useState(null);
-  const [city, setCity] = useState('');
+//const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+const [weather, setWeather] = useState(null);
+const [city, setCity] = useState('');
 
-  useEffect(() => {
+useEffect(() => {
  axios.get(`https://wtfismyip.com/json`)
   .then((response) => {
     console.log('Localização (IP)', response.data);
@@ -34,93 +34,112 @@ useEffect(() => {
 }
 , [city]);
 
-  const fetchWeatherByCity = (selectedCity) => {
-    setWeather(null);
-    axios.get(`https://weather-app-production-fc08.up.railway.app/api/weather/${selectedCity}`)
-      .then((response) => {
-        setWeather(response.data);
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar clima', error);
-      });
-  };
+const fetchWeatherByCity = (city) => {
+  axios.get(`https://weather-app-production-fc08.up.railway.app/api/weather/${city}`)
+    .then((response) => {
+      console.log('Clima', response.data);
+      setWeather(response.data);
+    })
+    .catch((error) => {
+      console.error('Erro ao buscar clima', error);
+    });
+};
+const handleSearchCity = (newCity) => {
+  setCity(newCity);
+};  
 
-  const handleSearchCity = (newCity) => {
-    setCity(newCity);
-  };
+function formatarData(dataISO) {
+  const [ano, mes, dia] = dataISO.split('-'); 
+  return `${dia}/${mes}/${ano}`; 
+}
 
-  function formatarData(dataISO) {
-    const data = new Date(dataISO + 'T00:00:00');
-    return new Intl.DateTimeFormat('pt-BR', { weekday: 'long' }).format(data);
-  }
 
   return (
-    <div className="container py-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8 col-lg-6">
-          <h1 className="text-center mb-4">Previsão do Tempo</h1>
-          <WeatherSearch onSearch={handleSearchCity} />
+    <div className="container py-4">
+      {/* <div className="container mare>">
+        <div className="d-flex justify-content-end mt-3">
+          <Link to="/mare" className="btn btn-info">Ver Marés</Link>
+        </div>
 
-          {weather ? (
-            <div className="card mx-auto mt-4">
-              <div className="card-body p-4">
-                <div className="text-center">
-                  <h2 className="card-title">
-                    {weather.location.name}, {weather.location.country}
-                  </h2>
-                  <p className="lead">{weather.current.condition.text}</p>
-                </div>
+      </div> */}
 
-                <div className="d-flex align-items-center justify-content-center my-4">
-                  <img
-                    src={weather.current.condition.icon}
-                    alt={weather.current.condition.text}
-                    style={{ width: '100px', height: '100px' }}
-                  />
-                  <h3 className="display-4 fw-bold ms-3">{Math.round(weather.current.temp_c)}°C</h3>
-                </div>
 
-                <div className="d-flex justify-content-around text-center border-top pt-3">
-                  <div>
-                    <p className="mb-1 small">Vento</p>
-                    <h5 className="fw-bold">{weather.current.wind_kph} km/h</h5>
-                  </div>
-                  <div>
-                    <p className="mb-1 small">Umidade</p>
-                    <h5 className="fw-bold">{weather.current.humidity}%</h5>
-                  </div>
-                  <div>
-                    <p className="mb-1 small">Índice UV</p>
-                    <h5 className="fw-bold">{weather.current.uv}</h5>
-                  </div>
-                </div>
+      <h1 className="text-center mb-4">Previsão do Tempo</h1>
+      <WeatherSearch onSearch={handleSearchCity} />
 
-                <h4 className="text-center mt-5 mb-3">Próximos 3 Dias</h4>
-                <div className="row">
-                  {weather.forecast?.forecastday.map((day) => (
-                    <div className="col-4" key={day.date}>
-                      <div className="text-center">
-                        <p className="fw-bold mb-1">{formatarData(day.date)}</p>
-                        <img className="weather-icon my-1" src={day.day.condition.icon} alt="Ícone condição" />
-                        <p className="mb-0">
-                          <span className="fw-bold">{Math.round(day.day.maxtemp_c)}°</span> / 
-                          <span> {Math.round(day.day.mintemp_c)}°</span>
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+      {weather ? (
+        <div className="card mx-auto" style={{ maxWidth: '600px' }}>
+          <div className="card-body">
+            <h2 className="card-title text-center">
+              {weather.location.name}, {weather.location.region},{' '}
+              {weather.location.country}
+            </h2>
+
+            <div className="d-flex justify-content-around my-3">
+              <div>
+                <p className="mb-1">Temperatura:</p>
+                <h4>{weather.current.temp_c}°C</h4>
+              </div>
+              <div>
+                <p className="mb-1">Vento:</p>
+                <h4>{weather.current.wind_kph} km/h</h4>
+              </div>
+              <div>
+                <p className="mb-1">Umidade:</p>
+                <h4>{weather.current.humidity}%</h4>
               </div>
             </div>
-          ) : (
-            <div className='mt-4'>
-              <Skeleton />
+
+            <div className="text-center">
+              <p>Índice UV: {weather.current.uv}</p>
+              <p>Condição: {weather.current.condition.text}</p>
+              <img
+                src={weather.current.condition.icon}
+                alt={weather.current.condition.text}
+              />
             </div>
-          )}
+
+            <div className="text-center mt-3">
+              <p>Pressão: {weather.current.pressure_mb} hPa</p>
+              <p>Visibilidade: {weather.current.vis_km} km</p>
+              <p>
+                Nascer do Sol: {weather.forecast.forecastday[0].astro.sunrise}
+              </p>
+              <p>
+                Pôr do Sol: {weather.forecast.forecastday[0].astro.sunset}
+              </p>
+            </div>
+
+            <h3 className="mt-4">Previsão de 3 Dias</h3>
+            <div className="row">
+              {weather.forecast?.forecastday.map((day) => (
+                <div className="col-md-4" key={day.date}>
+                  <div className="card mb-3 weather-card">
+                    <div className="card-body text-center">
+                      <h5 className="card-title">{formatarData(day.date)}</h5>
+                      <p className='weather-condition'>{day.day.condition.text}</p>
+                      <p>
+                        Max: <span style={{ color: 'red', fontWeight: '500' }}>{day.day.maxtemp_c}°C </span>  |  
+                        Min: <span style={{ color: 'blue', fontWeight: '500' }}>{day.day.mintemp_c}°C</span>
+                      </p>
+                      <img className="weather-icon" src={day.day.condition.icon} alt="Ícone condição" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>          </div>
         </div>
-      </div>
+      ) : (
+        <div className='d-flex justify-content-center'>
+          <div style={{maxWidth: '600px', width: '100%'}}>
+            <Skeleton/>
+
+            <Skeleton/>
+          </div>
+        </div>
+                    
+      )}
     </div>
   );
 }
-
 export default App;
